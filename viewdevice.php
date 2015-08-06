@@ -11,7 +11,6 @@ if ($conn->connect_error) {
 
 $sql = "SELECT * FROM measurands WHERE device='" . $_GET['device'] ."'";
 $result = $conn->query($sql);
-// $conn->close();
 ?>
 
 
@@ -87,6 +86,8 @@ while ($row = $result -> fetch_assoc()) {
 					</div>
 <?
 }
+
+$conn->close();
 ?>
 				</div>
 			</div>
