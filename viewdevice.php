@@ -11,6 +11,31 @@ if ($conn->connect_error) {
 
 $sql = "SELECT * FROM measurands WHERE device='" . $_GET['device'] ."'";
 $result = $conn->query($sql);
+
+function create_chart($sql_row) {
+?>
+			$('#<? echo $sql_row['device'] . "-" . $sql_row['name']; ?>').highcharts("StockChart", {
+				chart: { type: 'scatter', zoomType: 'xy'},
+				xAxis: { type: 'datetime' },
+				yAxis: { title: { text: '<? echo ($sql_row['units'] != "") ? (($sql_row['friendly_name'] != "") ? $sql_row['friendly_name'] : $sql_row['name']) . " / " . $sql_row['units'] : $sql_row['friendly_name'] ?>' } },
+				series: [{ name: 'Testing' }, { name: 'Stable' }],
+				title: { text: '<? echo ($sql_row['friendly_name'] != "") ? $sql_row['friendly_name'] : $sql_row['name'] ?>' }
+			});
+<?
+}
+
+function get_json($sql_row) {
+?>
+		$.getJSON('http://109.237.25.161/particle/measurements?device=<?=$sql_row['device']?>&measurement=<?=$sql_row['name']?>', function(data) {
+			var chart = $('#<? echo $sql_row['device'] . "-" . $sql_row['name']; ?>').highcharts();
+			$.each(data.measurements, function(key, val) {
+				obj = val;
+				chart.series[0].addPoint([Date.parse(obj.timestamp), parseFloat(obj.value)], false);
+			});
+			chart.redraw();
+		});
+<?
+}
 ?>
 
 
@@ -33,36 +58,17 @@ $result = $conn->query($sql);
 <?
 		$result = $conn->query($sql);
 		while ($row = $result -> fetch_assoc()) {
+			create_chart($row);
+		}
 ?>
-			$('#<? echo $row['device'] . "-" . $row['name']; ?>').highcharts("StockChart", {
-				chart: { type: 'scatter', zoomType: 'xy'},
-				xAxis: { type: 'datetime' },
-				yAxis: { title: { text: '<? echo ($row['units'] != "") ? (($row['friendly_name'] != "") ? $row['friendly_name'] : $row['name']) . " / " . $row['units'] : $row['friendly_name'] ?>' } },
-				series: [{ name: 'Testing' }, { name: 'Stable' }],
-				title: { text: '<? echo ($row['friendly_name'] != "") ? $row['friendly_name'] : $row['name'] ?>' }
-			});
-<?
-}
-?>
-
 		});
-
+		
 <?
 $result = $conn->query($sql);
 while ($row = $result -> fetch_assoc()) {
-?>
-		$.getJSON('http://109.237.25.161/particle/measurements?device=<?=$row['device']?>&measurement=<?=$row['name']?>', function(data) {
-			var chart = $('#<? echo $row['device'] . "-" . $row['name']; ?>').highcharts();
-			$.each(data.measurements, function(key, val) {
-				obj = val;
-				chart.series[0].addPoint([Date.parse(obj.timestamp), parseFloat(obj.value)], false);
-			});
-			chart.redraw();
-		});
-<?
+		get_json($row);
 }
 ?>
-
 		</script>
 	</head>
 
