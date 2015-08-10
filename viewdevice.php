@@ -12,6 +12,15 @@ if ($conn->connect_error) {
 $sql = "SELECT * FROM measurands WHERE device='" . $_GET['device'] ."'";
 $result = $conn->query($sql);
 
+function get_nice_device_name($device_id, $conn) {
+	$sql = "SELECT * FROM devices WHERE device_id='" . $device_id ."'";
+	$result = $conn->query($sql);
+	$row = $result -> fetch_assoc();
+	$nice_name = $row['name'];
+	return $nice_name;
+}
+
+
 function create_chart($sql_row) {
 ?>
 			$('#<? echo $sql_row['device'] . "-" . $sql_row['name']; ?>').highcharts("StockChart", {
@@ -119,7 +128,7 @@ while ($row = $result -> fetch_assoc()) {
 				</nav>
 
 				<div class="page-header">
-					<h1>Device (<? echo($_GET['device']); ?>)</h1>
+					<h1><? echo(get_nice_device_name($_GET['device'], $conn)); ?></h1>
 				</div>
 
 				<div class="row">
