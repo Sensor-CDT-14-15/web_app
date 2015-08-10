@@ -109,13 +109,15 @@ while ($row = $result -> fetch_assoc()) {
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View device data<span class="caret"></span></a>
 									<ul class="dropdown-menu active">
-										<li><a href="#">Device 1</a></li>
-										<li><a href="#">Device 2</a></li>
-										<li><a href="#">Device 3</a></li>
-										<li role="separator" class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-										<li role="separator" class="divider"></li>
-										<li><a href="#">One more separated link</a></li>
+										<?
+										$menu_sql = "SELECT * FROM devices";
+										$menu_result = $conn->query($menu_sql);
+										while ($row = $menu_result -> fetch_assoc()) {
+											?>
+											<li><a href="viewdevice.php?device=<?=$row['device_id']?>"><? echo(get_nice_device_name($row['device_id'], $conn)) ?></a></li>
+											<?
+										}
+										?>
 									</ul>
 								</li>
 							</ul>
