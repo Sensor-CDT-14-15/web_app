@@ -52,6 +52,7 @@ function get_json($sql_row) {
 		<link href="css/bootstrap-theme.css" rel="stylesheet">
 
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 		<script type="text/javascript">
 		$(document).ready(function() {
@@ -78,6 +79,45 @@ while ($row = $result -> fetch_assoc()) {
 
 		<div class="container-narrow">
 			<div class="content">
+
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="#">Seguimi</a>
+						</div>
+
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav">
+								<li><a href="#">Link <span class="sr-only">(current)</span></a></li>
+								<li><a href="about.php">About</a></li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View device data<span class="caret"></span></a>
+									<ul class="dropdown-menu active">
+										<li><a href="#">Device 1</a></li>
+										<li><a href="#">Device 2</a></li>
+										<li><a href="#">Device 3</a></li>
+										<li role="separator" class="divider"></li>
+										<li><a href="#">Separated link</a></li>
+										<li role="separator" class="divider"></li>
+										<li><a href="#">One more separated link</a></li>
+									</ul>
+								</li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
+								<li><button class="btn btn-primary navbar-btn btn-success btn-disabled" type="button" disabled>All good!</button></li>
+							</ul>
+						</div><!-- /.navbar-collapse -->
+					</div><!-- /.container-fluid -->
+				</nav>
+
 				<div class="page-header">
 					<h1>Device (<? echo($_GET['device']); ?>)</h1>
 				</div>
