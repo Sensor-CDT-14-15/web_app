@@ -132,11 +132,11 @@ while ($row = $result -> fetch_assoc()) {
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View analyses<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                 <?
-                $analyses_menu_sql = "SELECT * FROM analytes";
+                $analyses_menu_sql = "SELECT * FROM rooms";
                 $analyses_menu_result = $conn->query($analyses_menu_sql);
                 while ($row = $analyses_menu_result -> fetch_assoc()) {
                   ?>
-                  <li><a href="viewanalysis.php?room=<?=$row['room']?>"><?echo get_nice_room_name($row['room'], $conn);?></a></li>
+                  <li><a href="viewanalysis.php?room=<?=$row['room']?>"><?=$row['friendly_name'];?></a></li>
                   <?
                 }
                 ?>
