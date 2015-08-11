@@ -9,7 +9,7 @@ if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM analyses WHERE room='" . $_GET['room'] ."'";
+$sql = "SELECT * FROM analytes WHERE room='" . $_GET['room'] ."'";
 $result = $conn->query($sql);
 
 function get_nice_device_name($device_id, $conn) {
