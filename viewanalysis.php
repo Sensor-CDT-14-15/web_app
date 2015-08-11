@@ -31,7 +31,7 @@ function get_nice_room_name($room, $conn) {
 function create_chart($sql_row) {
 ?>
 			$('#<? echo $sql_row['room'] . "-" . $sql_row['name']; ?>').highcharts("StockChart", {
-				chart: { type: 'scatter', zoomType: 'xy'},
+				chart: { type: 'line', zoomType: 'xy', step: true},
 				xAxis: { type: 'datetime' },
 				yAxis: { title: { text: '<? echo ($sql_row['units'] != "") ? (($sql_row['friendly_name'] != "") ? $sql_row['friendly_name'] : $sql_row['name']) . " / " . $sql_row['units'] : $sql_row['friendly_name'] ?>' } },
 				series: [{ name: 'Testing' }, { name: 'Stable' }],
@@ -59,7 +59,7 @@ function get_json($sql_row) {
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>View device data</title>
+		<title>View analyses</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
